@@ -105,7 +105,7 @@ public class Comandos {
 					}	
 				}
 			break;
-/*
+
 			case "ELIMINAR_USUARIO":
 				if (listaPalabrasLinea.size () > 2) {
 					System.out.println("Más Parametros");
@@ -117,7 +117,7 @@ public class Comandos {
 					eliminarUsuario();
 				}
 			break;
-			case "AGREGAR_AUTOR":
+/*			case "AGREGAR_AUTOR":
 				if (listaPalabrasLinea.size() > 2) {
 					System.out.println("Más Parametros");
 					System.out.println("");
@@ -433,14 +433,31 @@ public class Comandos {
 		int contador = 0;
 		for (Usuario usu:ManejadorUsuario.getInstancia().getListaUsuarios()){
 			if (listaPalabrasLinea.get(1).equals(String.valueOf(usu.getId())) || listaPalabrasLinea.get(1).equals(usu.getNombreUsuario())) {
-				if (listaPalabrasLinea.get(2).equals(String.valueOf(usu.getId())) || listaPalabrasLinea.get(2).equals(usu.getContrasenia())) {
-
+				if (listaPalabrasLinea.get(2).equals(usu.getContrasenia())) {
+					ManejadorUsuario.getInstancia().modificarUsuario(usu, listaPalabrasLinea.get(3), listaPalabrasLinea.get(4)); 
 				}
 			}
 			contador = contador +1;
 		}
 	}
 	
+	public void eliminarUsuario() {
+		Usuario usuario = new Usuario();
+		boolean usuario_existe = false;
+		for (Usuario user: ManejadorUsuario.getInstancia().getListaUsuarios()) {
+			if (listaPalabrasLinea.get(1).equals(String.valueOf(user.getId())) || listaPalabrasLinea.get(1).equals(user.getNombreUsuario())) {
+				usuario_existe = true;
+				usuario = user;
+				break;
+			}
+		}
+		if (usuario_existe == true) {
+			ManejadorUsuario.getInstancia().eliminarUsuario(usuario);
+		} else {
+			System.out.println("El usuario ingresado no existe!");
+		}
+	}
+
 	public boolean getAprobacion() {
 		return aprobacion;
 	}
