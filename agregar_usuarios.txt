@@ -1,0 +1,5 @@
+AGREGAR_USUARIO usuario1 u1_password
+AGREGAR_USUARIO usuario2 u2_password
+AGREGAR_USUARIO usuario3 u3_password
+AGREGAR_USUARIO usuario4 u4_password
+AGREGAR_USUARIO usuario5 u5_password
