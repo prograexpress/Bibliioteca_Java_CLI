@@ -410,22 +410,27 @@ public class Comandos {
 	public void mostrarUsuarios() {
 		error = 0;
 		for (Usuario usu:ManejadorUsuario.getInstancia().getListaUsuarios()){
-			System.out.println("ID " + usu.getId() + " Nombre: " + usu.getNombreUsuario() + " Contrasenia: " + usu.getContrasenia());
+			System.out.println("ID: " + usu.getId() + " Nombre: " + usu.getNombreUsuario() + " Contrasenia: " + usu.getContrasenia());
 		}
 		ManejadorArchivo.escribirArchivo(linea);
 	}
 	
 	public void mUser() {
+		boolean usuario_existe = false;
 		for (Usuario usu:ManejadorUsuario.getInstancia().getListaUsuarios()){
 			if (listaPalabrasLinea.get(1).equals(String.valueOf(usu.getId())) || listaPalabrasLinea.get(1).equals(usu.getNombreUsuario())) {
 				System.out.println("");
-				System.out.println(" " + " ID " + usu.getId() + " Nombre: " + usu.getNombreUsuario() + " Contrasenia: " + usu.getContrasenia());
+				System.out.println(" " + " ID: " + usu.getId() + " Nombre: " + usu.getNombreUsuario() + " Contrasenia: " + usu.getContrasenia());
 				System.out.println("");
 				ManejadorArchivo.escribirArchivo(linea);
-			} else {
-				System.out.println("No hay coincidencias para mostrar");
+				usuario_existe = true;
 				break;
-			}
+			} else {
+				usuario_existe = false;
+			}			
+		}
+		if (usuario_existe == false ) {
+			System.out.println("Este usuario no existe");
 		}
 	}
 	
