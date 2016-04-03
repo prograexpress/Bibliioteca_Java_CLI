@@ -1,4 +1,4 @@
-Archivo que detalla el progreso del proyecto hasta la fecha 03/04/2016 - 2.35 am
+Archivo que detalla el progreso del proyecto hasta la fecha 03/04/2016 - 8.54 am
 
 SISTEMA
 	-> SELECCION DE METODO DE ENTRADA DE DATOS
@@ -13,3 +13,5 @@ ADMINISTRAR ENTIDADES
 	USUARIOS
 		-> AGREGAR
 		-> MOSTRAR
+		-> MODIFICAR
+		-> ELIMINAR
