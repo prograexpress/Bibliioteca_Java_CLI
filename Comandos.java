@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 import org.biblioteca.bean.Usuario;
 import org.biblioteca.bean.Autor;
+import org.biblioteca.bean.Editorial;
 import org.biblioteca.manejadores.ManejadorUsuario;
 import org.biblioteca.manejadores.ManejadorAutor;
+import org.biblioteca.manejadores.ManejadorEditorial;
 import org.biblioteca.manejadores.ManejadorArchivo;
 
 public class Comandos {
@@ -16,6 +18,7 @@ public class Comandos {
 	private String linea;
 	private int numeroUsuarios = 0;
 	private int numeroAutores = 0;
+	private int numeroEditoriales = 0;
 	private int error = 0;
 	
 	
@@ -124,6 +127,7 @@ public class Comandos {
 					}
 				}
 			break;
+				
 			case "AGREGAR_AUTOR":
 				if (listaPalabrasLinea.size() > 2) {
 					System.out.println("El comando contiene más parametros de los aceptados");
@@ -139,6 +143,7 @@ public class Comandos {
 					}
 				}
 			break;
+				
 			case "MOSTRAR_AUTORES":
 				if (listaPalabrasLinea.size() > 1) {
 					System.out.println("El comando contiene más parametros de los aceptados");
@@ -198,7 +203,7 @@ public class Comandos {
 					eliminarAutor();
 				}
 			break;
-/*
+
 			case "AGREGAR_EDITORIAL":
 				if (listaPalabrasLinea.size() > 2) {
 					System.out.println("El comando contiene más parametros de los aceptados");
@@ -210,6 +215,7 @@ public class Comandos {
 					agregarEditorial();
 				}
 			break;
+
 			case "MOSTRAR_EDITORIAL":
 				if (listaPalabrasLinea.size() > 2) {
 					System.out.println("El comando contiene más parametros de los aceptados");
@@ -221,6 +227,7 @@ public class Comandos {
 					mostrarEditorial();
 				}
 			break;
+				
 			case "MOSTRAR_EDITORIALES":
 				if (listaPalabrasLinea.size() > 1) {
 					System.out.println("El comando contiene más parametros de los aceptados");
@@ -232,6 +239,7 @@ public class Comandos {
 					mostrarEditoriales();
 				}
 			break;
+				
 			case "MODIFICAR_EDITORIAL":
 				if (listaPalabrasLinea.size() > 3) {
 					System.out.println("El comando contiene más parametros de los aceptados");
@@ -240,9 +248,13 @@ public class Comandos {
 					System.out.println("El comando contiene menos parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() == 3) {
-					modificarEditorial();
+					try {
+						modificarEditorial();
+					} catch (Exception ex) {
+					}
 				}
 				break;
+				
 			case "ELIMINAR_EDITORIAL":
 				if (listaPalabrasLinea.size() > 2) {
 					System.out.println("El comando contiene más parametros de los aceptados");
@@ -254,6 +266,7 @@ public class Comandos {
 					eliminarEditorial();
 				}
 			break;
+/*
 			case "AGREGAR_GENERO":
 				if (listaPalabrasLinea.size() > 2) {
 					System.out.println("El comando contiene más parametros de los aceptados");
@@ -386,7 +399,6 @@ public class Comandos {
 		
 	}
 	
-	//definir metodos
 	//CRUD USUARIO
 	public void agregarUsuario() {
 		Usuario usuario = new Usuario();
@@ -583,6 +595,103 @@ public class Comandos {
 			System.out.println("El Autor ingresado no existe! ");
 		}
 	}
+	
+	//CRUD Editorial
+	public void agregarEditorial() {
+		Editorial editorial = new Editorial();
+		error = 0;
+		if (numeroEditoriales == 0) {
+			try {
+				editorial.setId(numeroEditoriales);
+				editorial.setNombreEditorial(listaPalabrasLinea.get(1));
+				ManejadorEditorial.getInstancia().agregarEditorial(editorial);
+				numeroEditoriales++;
+				System.out.println("Editorial agregada con éxito");
+			} catch (Exception ex) {
+				System.out.println("Ha ocurrido un error por favor intente de nuevo");
+			}
+		} else {
+			for (Editorial ed:ManejadorEditorial.getInstancia().getListaEditoriales()) {
+				if (listaPalabrasLinea.get(1).equals(String.valueOf(ed.getId())) || listaPalabrasLinea.get(1).equals(ed.getNombreEditorial())) {
+					System.out.println("La editorial ingresada ya existe");
+					System.out.println("");
+					error++;
+					break;
+				}
+			}
+			
+			if (error == 0) {
+				try {
+					editorial.setId(numeroEditoriales);
+					editorial.setNombreEditorial(listaPalabrasLinea.get(1));
+					ManejadorEditorial.getInstancia().agregarEditorial(editorial);
+					ManejadorArchivo.escribirArchivo(linea);
+					numeroEditoriales++;
+					System.out.println("Editorial agregada exitosamente");
+				} catch (Exception ex) {
+					System.out.println("Ha ocurrido un error por favor intente de nuevo");
+				}
+			}
+		}
+	}
+	
+	public void mostrarEditoriales() {
+		error = 0;
+		for (Editorial ed:ManejadorEditorial.getInstancia().getListaEditoriales()) {
+			System.out.println("ID: " + ed.getId() +  " Nombre_Editorial: " + ed.getNombreEditorial());
+		}
+		ManejadorArchivo.escribirArchivo(linea);
+	}
+	
+	public void mostrarEditorial() {
+		boolean existenciaEditorial = false;
+		for (Editorial ed:ManejadorEditorial.getInstancia().getListaEditoriales()) {
+			if (listaPalabrasLinea.get(1).equals(String.valueOf(ed.getId())) || listaPalabrasLinea.get(1).equals(ed.getNombreEditorial())) {
+				System.out.println("");
+				System.out.println("ID: " + ed.getId() + " Nombre_Editorial: " + ed.getNombreEditorial());
+				System.out.println("");
+				ManejadorArchivo.escribirArchivo(linea);
+				existenciaEditorial = true;
+				break;
+			} else {
+				existenciaEditorial = false;
+			}
+		}
+		if (existenciaEditorial == false) {
+			System.out.println("Esta editorial no existe");
+		}
+	}
+	
+	public void modificarEditorial() {
+		int contador = 0;
+		for (Editorial ed:ManejadorEditorial.getInstancia().getListaEditoriales()) {
+			if (listaPalabrasLinea.get(1).equals(String.valueOf(ed.getId())) || listaPalabrasLinea.get(1).equals(ed.getNombreEditorial())) {
+				ManejadorEditorial.getInstancia().modificarEditorial(ed,listaPalabrasLinea.get(2));
+			}
+			contador = contador +1;
+		}
+	}
+	
+	public void eliminarEditorial() {
+		Editorial editorial = new Editorial();
+		boolean existenciaEditorial = false;
+		for (Editorial ed: ManejadorEditorial.getInstancia().getListaEditoriales()) {
+			if (listaPalabrasLinea.get(1).equals(String.valueOf(ed.getId())) || listaPalabrasLinea.get(1).equals(ed.getNombreEditorial())) {
+				existenciaEditorial = true;
+				editorial = ed;
+				break;
+			}
+		}
+		if (existenciaEditorial == true) {
+			ManejadorEditorial.getInstancia().eliminarEditorial(editorial);
+		} else {
+			System.out.println("La editorial ingresada no existe! ");
+			System.out.println("Intente de nuevo");
+			System.out.println("");
+		}	
+	}
+	
+	
 	
 	public boolean getAprobacion() {
 		return aprobacion;
