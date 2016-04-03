@@ -3,7 +3,9 @@ package org.biblioteca.sistema;
 import java.util.ArrayList;
 
 import org.biblioteca.bean.Usuario;
+import org.biblioteca.bean.Autor;
 import org.biblioteca.manejadores.ManejadorUsuario;
+import org.biblioteca.manejadores.ManejadorAutor;
 import org.biblioteca.manejadores.ManejadorArchivo;
 
 public class Comandos {
@@ -13,6 +15,7 @@ public class Comandos {
 	private String palabra = "";
 	private String linea;
 	private int numeroUsuarios = 0;
+	private int numeroAutores = 0;
 	private int error = 0;
 	
 	
@@ -76,10 +79,10 @@ public class Comandos {
 
 			case "MOSTRAR_USUARIO":
 				if (listaPalabrasLinea.size() > 2) {
-					System.out.println("Más Parametros");
+					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() < 2){
-					System.out.println("Faltaron paranetros");
+					System.out.println("El comando contiene menos parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() == 2) {
 					try {
@@ -92,92 +95,116 @@ public class Comandos {
 
 			case "MODIFICAR_USUARIO":
 				if (listaPalabrasLinea.size() > 5) {
-					System.out.println("Más Parametros");
+					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() < 5){
-					System.out.println("Faltaron Parametros");
+					System.out.println("El comando contiene menos parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() == 5) {
 					try {
-					modificarUsuario();
+						modificarUsuario();
 					} catch (Exception ex) {
-						System.out.println(ex.getMessage());
+						
 					}	
 				}
 			break;
 
 			case "ELIMINAR_USUARIO":
 				if (listaPalabrasLinea.size () > 2) {
-					System.out.println("Más Parametros");
+					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() < 2) {
-					System.out.println("Faltaron Parametros");
+					System.out.println("El comando contiene menos parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() == 2) {
-					eliminarUsuario();
+					try {
+						eliminarUsuario();
+					} catch (Exception ex) {
+						System.out.println(ex.getMessage());
+					}
 				}
 			break;
-/*			case "AGREGAR_AUTOR":
+			case "AGREGAR_AUTOR":
 				if (listaPalabrasLinea.size() > 2) {
-					System.out.println("Más Parametros");
+					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() < 2) {
-					System.out.println("Faltan Parametros");
-					System.out.println("");
-				} else if (listaPalabrasLinea == 2) {
-					agregarAutor();
-				}
-			break;
-			case "MOSTRAR_AUTOR":
-				if (listaPalabrasLinea.size() > 2) {
-					System.out.println("Más Parametros");
-					System.out.println("");
-				} else if (listaPalabrasLinea.size() < 2) {
-					System.out.println("Faltan Parametros");
+					System.out.println("El comando contiene menos parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() == 2) {
-					mostrarAutor();
+					try {
+						agregarAutor();
+					} catch (Exception ex) {
+						System.out.println(ex.getMessage());
+					}
 				}
 			break;
 			case "MOSTRAR_AUTORES":
 				if (listaPalabrasLinea.size() > 1) {
-					System.out.println("Más Parametros");
+					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() < 1) {
-					System.out.println("Faltan Parametros");
+					System.out.println("El comando contiene menos parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() == 1) {
-					mostrarAutores();
+					try {
+						mostrarAutores();
+					} catch (Exception ex) {
+						System.out.println(ex.getMessage());
+					}
 				}
 			break;
-			case "MODIFICAR_AUTOR":
-				if (listaPalabrasLinea.size() > 3) {
-					System.out.println("Más Parametros");
-					System.out.println("");
-				} else if (listaPalabrasLinea.size() < 3) {
-					System.out.println("Faltan Parametros");
-					System.out.println("");
-				} else if (listaPalabrasLinea.size() == 3) {
-					modificarAutor();
-				}
-			break;
-			case "ELIMINAR_AUTOR":
+
+			case "MOSTRAR_AUTOR":
 				if (listaPalabrasLinea.size() > 2) {
-					System.out.println("Más Parametros");
+					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() < 2) {
-					System.out.println("Faltan Parametros");
+					System.out.println("El comando contiene menos parametros de los aceptados");
+					System.out.println("");
+				} else if (listaPalabrasLinea.size() == 2) {
+					try {
+						mostrarAutor();
+					} catch (Exception ex) {
+						System.out.println(ex.getMessage());
+					}
+				}
+			break;
+
+			case "MODIFICAR_AUTOR":
+				if (listaPalabrasLinea.size() > 3) {
+					System.out.println("El comando contiene más parametros de los aceptados");
+					System.out.println("");
+				} else if (listaPalabrasLinea.size() < 3) {
+					System.out.println("El comando contiene menos parametros de los aceptados");
+					System.out.println("");
+				} else if (listaPalabrasLinea.size() == 3) {
+					try {
+						modificarAutor();
+					} catch (Exception ex) {
+
+					}
+				}
+			break;
+
+			case "ELIMINAR_AUTOR":
+				if (listaPalabrasLinea.size() > 2) {
+					System.out.println("El comando contiene más parametros de los aceptados");
+					System.out.println("");
+				} else if (listaPalabrasLinea.size() < 2) {
+					System.out.println("El comando contiene menos parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() == 2) {
 					eliminarAutor();
 				}
 			break;
+/*
 			case "AGREGAR_EDITORIAL":
 				if (listaPalabrasLinea.size() > 2) {
-					System.out.println("Más Datos");
+					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() < 2){
-					System.out.println("Faltan Parametros");
+					System.out.println("El comando contiene menos parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() == 2){
 					agregarEditorial();
@@ -185,10 +212,10 @@ public class Comandos {
 			break;
 			case "MOSTRAR_EDITORIAL":
 				if (listaPalabrasLinea.size() > 2) {
-					System.out.println("Más Datos");
+					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() < 2) {
-					System.out.println("Faltan Datos");
+					System.out.println("El comando contiene menos parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() == 2) {
 					mostrarEditorial();
@@ -196,10 +223,10 @@ public class Comandos {
 			break;
 			case "MOSTRAR_EDITORIALES":
 				if (listaPalabrasLinea.size() > 1) {
-					System.out.println("Más Datos");
+					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() < 1) {
-					System.out.println("Faltan Datos");
+					System.out.println("El comando contiene menos parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() == 1) {
 					mostrarEditoriales();
@@ -207,10 +234,10 @@ public class Comandos {
 			break;
 			case "MODIFICAR_EDITORIAL":
 				if (listaPalabrasLinea.size() > 3) {
-					System.out.println("Más Datos");
+					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() < 3) {
-					System.out.println("Faltan Datos");
+					System.out.println("El comando contiene menos parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() == 3) {
 					modificarEditorial();
@@ -218,10 +245,10 @@ public class Comandos {
 				break;
 			case "ELIMINAR_EDITORIAL":
 				if (listaPalabrasLinea.size() > 2) {
-					System.out.println("Más Datos");
+					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() < 2) {
-					System.out.println("Faltan Datos");
+					System.out.println("El comando contiene menos parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() == 2){
 					eliminarEditorial();
@@ -229,10 +256,10 @@ public class Comandos {
 			break;
 			case "AGREGAR_GENERO":
 				if (listaPalabrasLinea.size() > 2) {
-					System.out.println("Más Datos");
+					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() < 2) {
-					System.out.println("Faltan Datos");
+					System.out.println("El comando contiene menos parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() == 2) {
 					agregarGenero();
@@ -240,10 +267,10 @@ public class Comandos {
 			break;
 			case "MOSTRAR_GENERO":
 				if (listaPalabrasLinea.size() > 2) {
-					System.out.println("Más Datos");
+					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() < 2) {
-					System.out.println("Faltan Datos");
+					System.out.println("El comando contiene menos parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() == 2) {
 					mostrarGenero();
@@ -251,10 +278,10 @@ public class Comandos {
 			break;
 			case "MOSTRAR_GENEROS":
 				if (listaPalabrasLinea.size() > 1) {
-					System.out.println("Más Datos");
+					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() < 1) {
-					System.out.println("Faltan Datos");
+					System.out.println("El comando contiene menos parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() == 1) {
 					mostrarGeneros();
@@ -262,10 +289,10 @@ public class Comandos {
 			break;
 			case "MODIFICAR_GENERO":
 				if (listaPalabrasLinea.size() > 3) {
-					System.out.println("Más Datos");
+					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() < 3) {
-					System.out.println("Faltan Datos");
+					System.out.println("El comando contiene menos parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() == 3) {
 					modificarGenero();
@@ -273,10 +300,10 @@ public class Comandos {
 			break;
 			case "ELIMINAR_GENERO":
 				if (listaPalabrasLinea.size() > 2 ) {
-					System.out.println("Más Datos");
+					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() < 2) {
-					System.out.println("Faltan datos");
+					System.out.println("El comando contiene menos parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() == 2) {
 					eliminarGenero();
@@ -284,10 +311,10 @@ public class Comandos {
 			break;
 			case "AGREGAR_LIBRO":
 				if (listaPalabrasLinea.size() > 7 ) {
-					System.out.println("Más Datos");
+					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() < 7) {
-					System.out.println("Faltan Datos");
+					System.out.println("El comando contiene menos parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() == 7) {
 					agregarLibro();
@@ -295,10 +322,10 @@ public class Comandos {
 			break;
 			case "MOSTRAR_LIBRO":
 				if (listaPalabrasLinea.size() > 2) {
-					System.out.println("Más Datos");
+					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() < 2) {
-					System.out.println("Faltan Datos");
+					System.out.println("El comando contiene menos parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() == 2) {
 					mostrarLibro();
@@ -306,10 +333,10 @@ public class Comandos {
 			break;
 			case "MOSTRAR_LIBROS":
 				if (listaPalabrasLinea.size() > 1) {
-					System.out.println("Más Datos");
+					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() < 1) {
-					System.out.println("Faltan Datos");
+					System.out.println("El comando contiene menos parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() == 1) {
 					mostrarLibros();
@@ -317,10 +344,10 @@ public class Comandos {
 			break;
 			case "MODIFICAR_LIBRO":
 				if (listaPalabrasLinea.size() > 8) {
-					System.out.println("Más Datos");
+					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() < 8) {
-					System.out.println("Faltan Datos");
+					System.out.println("El comando contiene menos parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() == 8){
 					modificarLibro();
@@ -328,10 +355,10 @@ public class Comandos {
 			break;
 			case "ELIMINAR_LIBRO":
 				if (listaPalabrasLinea.size() > 2) {
-					System.out.println("Más Datos");
+					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() < 2) {
-					System.out.println("Faltan Datos");
+					System.out.println("El comando contiene menos parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() == 2) {
 					eliminarLibro();
@@ -340,10 +367,10 @@ public class Comandos {
 */
 			case "SALIR":
 				if (listaPalabrasLinea.size() > 1){ 
-					System.out.println("Más datos");
+					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() < 1) {
-					System.out.println("Faltan Datos");
+					System.out.println("El comando contiene menos parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() == 1) {
 					ManejadorArchivo.escribirArchivo(linea);
@@ -360,7 +387,7 @@ public class Comandos {
 	}
 	
 	//definir metodos
-	
+	//CRUD USUARIO
 	public void agregarUsuario() {
 		Usuario usuario = new Usuario();
 		error = 0;
@@ -434,6 +461,25 @@ public class Comandos {
 		}
 	}
 	
+	public void mostrarAutor() {
+		boolean existenciaAutor = false;
+		for (Autor aa:ManejadorAutor.getInstancia().getListaAutores()) {
+			if (listaPalabrasLinea.get(1).equals(String.valueOf(aa.getId())) || listaPalabrasLinea.get(1).equals(aa.getNombreAutor())) {
+				System.out.println("");
+				System.out.println("ID: " + aa.getId() + " Nombre_Autor: " + aa.getNombreAutor());
+				System.out.println("");
+				ManejadorArchivo.escribirArchivo(linea);
+				existenciaAutor = true;
+				break;
+			} else {
+				existenciaAutor = false;
+			}
+		}
+		if (existenciaAutor == false) {
+			System.out.println("El Autor no existe");
+		}
+	}
+	
 	public void modificarUsuario() {
 		int contador = 0;
 		for (Usuario usu:ManejadorUsuario.getInstancia().getListaUsuarios()){
@@ -463,6 +509,81 @@ public class Comandos {
 		}
 	}
 
+	//CRUD AUTOR
+	public void agregarAutor() {
+		Autor autor = new Autor();
+		error = 0;
+		if (numeroAutores == 0) {
+			try {
+				autor.setId(numeroAutores);
+				autor.setNombreAutor(listaPalabrasLinea.get(1));
+				ManejadorAutor.getInstancia().agregarAutor(autor);
+				ManejadorArchivo.escribirArchivo(linea);
+				numeroAutores++;
+				System.out.println("Autor agregado con éxito");
+			} catch (Exception ex) {
+				System.out.println("Ha ocurrido un error por favor intente de nuevo");
+			}
+		} else {
+			for (Autor aa:ManejadorAutor.getInstancia().getListaAutores()) {
+				if (listaPalabrasLinea.get(1).equals(String.valueOf(aa.getId())) || listaPalabrasLinea.get(1).equals(aa.getNombreAutor())) {
+					System.out.println("El autor ingresado ya existe");
+					System.out.println("");
+					error++;
+					break;
+				}
+			}
+	
+			if(error == 0) {
+				try {
+					autor.setId(numeroAutores);
+					autor.setNombreAutor(listaPalabrasLinea.get(1));
+					ManejadorAutor.getInstancia().agregarAutor(autor);
+					ManejadorArchivo.escribirArchivo(linea);
+					numeroAutores++;
+					System.out.println("Autor agregado con éxito");
+				} catch (Exception ex) {
+					System.out.println("Ha ocurrido un error por favor intente de nuevo");
+				}
+			}		
+		}
+	}
+	
+	public void mostrarAutores() {
+		error = 0;
+		for (Autor aa:ManejadorAutor.getInstancia().getListaAutores()) {
+			System.out.println("ID: " + aa.getId() +  " Nombre_Autor: " + aa.getNombreAutor());
+		}
+		ManejadorArchivo.escribirArchivo(linea);
+	}
+	
+	public void modificarAutor() {
+		int contador = 0;
+		for (Autor aa:ManejadorAutor.getInstancia().getListaAutores()) {
+			if (listaPalabrasLinea.get(1).equals(String.valueOf(aa.getId())) || listaPalabrasLinea.get(1).equals(aa.getNombreAutor())){
+				ManejadorAutor.getInstancia().modificarAutor(aa,listaPalabrasLinea.get(2));
+			}
+			contador = contador + 1;
+		}
+	}
+	
+	public void eliminarAutor() {
+		Autor autor = new Autor();
+		boolean existenciaAutor = false;
+		for (Autor aa: ManejadorAutor.getInstancia().getListaAutores()) {
+			if (listaPalabrasLinea.get(1).equals(String.valueOf(aa.getId())) || listaPalabrasLinea.get(1).equals(aa.getNombreAutor())) {
+				existenciaAutor = true;
+				autor = aa;
+				break;
+			}
+		}
+		if (existenciaAutor == true) {
+			ManejadorAutor.getInstancia().eliminarAutor(autor);
+		} else {
+			System.out.println("El Autor ingresado no existe! ");
+		}
+	}
+	
 	public boolean getAprobacion() {
 		return aprobacion;
 	}
