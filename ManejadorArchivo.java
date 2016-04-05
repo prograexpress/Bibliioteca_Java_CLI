@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import org.biblioteca.menu.Menu;
 
 import java.util.Calendar;
 
@@ -16,6 +17,7 @@ public class ManejadorArchivo {
 	private static BufferedReader lector = null;
 	private static Comandos comandos = new Comandos();
 	private static PrintWriter escritor = null;
+	private static Menu menu = new Menu();
 	
 	public ManejadorArchivo(String archivo) {
 		FileWriter escritorArchivo = null;
@@ -32,8 +34,9 @@ public class ManejadorArchivo {
 		
 		try {
 			lector = new BufferedReader(new FileReader(new File(ruta)));
-		} catch (FileNotFoundException noEncontrado) {
+		} catch (Exception ex) {
 			System.out.println("No se encontro el archivo.");
+			menu.menuPrincipal();	
 		}
 		
 		try {
