@@ -21,26 +21,23 @@ public class ManejadorLibro {
 		this.listaLibros.add(libro);
 	}
 
-	public void modificarLibro(Libro libroAnt,String nombreLibro) {
-		Libro libro = new Libro();
-		boolean existenciaLibro = false;
-		for (Libro aaTemp: listaLibros) {
-			if (aaTemp.getNombreLibro().equals(nombreLibro)) {
-				System.out.println("Este libro ya existe");
-				System.out.println("Imposible de modificar");
-				System.out.println("");
-				existenciaLibro = true;
+	public void modificarLibro(Libro libroAnt, Libro libroNuevo) {
+		listaLibros.remove(libroAnt);
+		boolean libroExiste = false;
+		for (Libro li: listaLibros) {
+			if (li.getNombreLibro().equals(libroNuevo.getNombreLibro())) {
+				libroExiste = true;
 				break;
 			} else {
-				existenciaLibro = false;
+				libroExiste = false;
 			}
 		}
-		if (existenciaLibro == false) {
-			libro.setId(libroAnt.getId());
-			libro.setNombreLibro(nombreLibro);
-			System.out.println("Libro: " + libroAnt.getId() + " modificado exitosamente");
-			listaLibros.remove(libroAnt);
-			listaLibros.add(libro);
+		if (libroExiste == false) {
+			listaLibros.add(libroNuevo);
+			System.out.println("Libro modificado con éxito");
+		}else {
+			System.out.println("Ya existe un libro con ese nombre");
+			listaLibros.add(libroAnt);
 		}
 	}
 	
