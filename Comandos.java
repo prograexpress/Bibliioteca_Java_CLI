@@ -5,10 +5,14 @@ import java.util.ArrayList;
 import org.biblioteca.bean.Usuario;
 import org.biblioteca.bean.Autor;
 import org.biblioteca.bean.Editorial;
+import org.biblioteca.bean.Genero;
+import org.biblioteca.bean.Libro;
 import org.biblioteca.manejadores.ManejadorUsuario;
 import org.biblioteca.manejadores.ManejadorAutor;
 import org.biblioteca.manejadores.ManejadorEditorial;
 import org.biblioteca.manejadores.ManejadorArchivo;
+import org.biblioteca.manejadores.ManejadorGenero;
+import org.biblioteca.manejadores.ManejadorLibro;
 
 public class Comandos {
 	private ArrayList<String> listaPalabrasLinea = new ArrayList<>();
@@ -19,6 +23,8 @@ public class Comandos {
 	private int numeroUsuarios = 0;
 	private int numeroAutores = 0;
 	private int numeroEditoriales = 0;
+	private int numeroGeneros = 0;
+	private int numeroLibros = 0;
 	private int error = 0;
 	
 	
@@ -266,7 +272,7 @@ public class Comandos {
 					eliminarEditorial();
 				}
 			break;
-/*
+
 			case "AGREGAR_GENERO":
 				if (listaPalabrasLinea.size() > 2) {
 					System.out.println("El comando contiene más parametros de los aceptados");
@@ -322,7 +328,7 @@ public class Comandos {
 					eliminarGenero();
 				}
 			break;
-			case "AGREGAR_LIBRO":
+		/*	case "AGREGAR_LIBRO":
 				if (listaPalabrasLinea.size() > 7 ) {
 					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
@@ -691,7 +697,99 @@ public class Comandos {
 		}	
 	}
 	
+	//CRUD GENERO
+	public void agregarGenero() {
+		Genero genero = new Genero();
+		error = 0;
+		if (numeroGeneros == 0) {
+			try {
+				genero.setId(numeroGeneros);
+				genero.setNombreGenero(listaPalabrasLinea.get(1));
+				ManejadorGenero.getInstancia().agregarGenero(genero);
+				ManejadorArchivo.escribirArchivo(linea);
+				numeroGeneros++;
+				System.out.println("Genero agregado con éxito");
+			} catch (Exception ex) {
+				System.out.println("Ha ocurrido un error por favor intente de nuevo");
+			}
+		} else {
+			for (Genero aa:ManejadorGenero.getInstancia().getListaGeneros()) {
+				if (listaPalabrasLinea.get(1).equals(String.valueOf(aa.getId())) || listaPalabrasLinea.get(1).equals(aa.getNombreGenero())) {
+					System.out.println("El genero ingresado ya existe");
+					System.out.println("");
+					error++;
+					break;
+				}
+			}
 	
+			if(error == 0) {
+				try {
+					genero.setId(numeroGeneros);
+					genero.setNombreGenero(listaPalabrasLinea.get(1));
+					ManejadorGenero.getInstancia().agregarGenero(genero);
+					ManejadorArchivo.escribirArchivo(linea);
+					numeroGeneros++;
+					System.out.println("Genero agregado con éxito");
+				} catch (Exception ex) {
+					System.out.println("Ha ocurrido un error por favor intente de nuevo");
+				}
+			}		
+		}
+	}
+	
+	public void mostrarGeneros() {
+		error = 0;
+		for (Genero aa:ManejadorGenero.getInstancia().getListaGeneros()) {
+			System.out.println("ID: " + aa.getId() +  " Nombre_Genero: " + aa.getNombreGenero());
+		}
+		ManejadorArchivo.escribirArchivo(linea);
+	}
+
+	public void mostrarGenero() {
+		boolean existenciaGenero = false;
+		for (Genero aa:ManejadorGenero.getInstancia().getListaGeneros()) {
+			if (listaPalabrasLinea.get(1).equals(String.valueOf(aa.getId())) || listaPalabrasLinea.get(1).equals(aa.getNombreGenero())) {
+				System.out.println("");
+				System.out.println("ID: " + aa.getId() + " Nombre_Genero: " + aa.getNombreGenero());
+				System.out.println("");
+				ManejadorArchivo.escribirArchivo(linea);
+				existenciaGenero = true;
+				break;
+			} else {
+				existenciaGenero = false;
+			}
+		}
+		if (existenciaGenero == false) {
+			System.out.println("El Genero no existe");
+		}
+	}
+	
+	public void modificarGenero() {
+		int contador = 0;
+		for (Genero aa:ManejadorGenero.getInstancia().getListaGeneros()) {
+			if (listaPalabrasLinea.get(1).equals(String.valueOf(aa.getId())) || listaPalabrasLinea.get(1).equals(aa.getNombreGenero())){
+				ManejadorGenero.getInstancia().modificarGenero(aa,listaPalabrasLinea.get(2));
+			}
+			contador = contador + 1;
+		}
+	}
+	
+	public void eliminarGenero() {
+		Genero genero = new Genero();
+		boolean existenciaGenero = false;
+		for (Genero aa: ManejadorGenero.getInstancia().getListaGeneros()) {
+			if (listaPalabrasLinea.get(1).equals(String.valueOf(aa.getId())) || listaPalabrasLinea.get(1).equals(aa.getNombreGenero())) {
+				existenciaGenero = true;
+				genero = aa;
+				break;
+			}
+		}
+		if (existenciaGenero == true) {
+			ManejadorGenero.getInstancia().eliminarGenero(genero);
+		} else {
+			System.out.println("El Genero ingresado no existe! ");
+		}
+	}
 	
 	public boolean getAprobacion() {
 		return aprobacion;

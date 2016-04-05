@@ -170,3 +170,13 @@ AGREGAR_USUARIO usuario4 u4password -> Realizado el 3-3-2016 a las 5:22:12
 AGREGAR_USUARIO usuario5 u5password -> Realizado el 3-3-2016 a las 5:22:12
 AGREGAR_USUARIO usuario6 u6password -> Realizado el 3-3-2016 a las 5:22:12
 MOSTRAR_USUARIOS -> Realizado el 3-3-2016 a las 5:22:36
+AGREGAR_GENERO infantil -> Realizado el 5-3-2016 a las 9:50:51
+AGREGAR_GENERO fantasia -> Realizado el 5-3-2016 a las 9:50:51
+AGREGAR_GENERO cuento -> Realizado el 5-3-2016 a las 9:50:51
+AGREGAR_GENERO aventura -> Realizado el 5-3-2016 a las 9:50:51
+MOSTRAR_GENEROS -> Realizado el 5-3-2016 a las 9:51:16
+AGREGAR_GENERO infantil -> Realizado el 5-3-2016 a las 9:51:40
+AGREGAR_GENERO fantasia -> Realizado el 5-3-2016 a las 9:51:40
+AGREGAR_GENERO cuento -> Realizado el 5-3-2016 a las 9:51:40
+AGREGAR_GENERO aventura -> Realizado el 5-3-2016 a las 9:51:40
+MOSTRAR_GENEROS -> Realizado el 5-3-2016 a las 9:51:56
