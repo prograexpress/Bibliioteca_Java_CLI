@@ -1,0 +1,4 @@
+AGREGAR_LIBRO 0 3 2 21456 libro1 52.10
+AGREGAR_LIBRO 3 0 cuento 21456 libro2 12.10
+AGREGAR_LIBRO Autor1 editorial3 infantil 21456 libro1 12.50
+

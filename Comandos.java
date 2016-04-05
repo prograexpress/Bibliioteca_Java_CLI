@@ -328,18 +328,18 @@ public class Comandos {
 					eliminarGenero();
 				}
 			break;
-		/*	case "AGREGAR_LIBRO":
-				if (listaPalabrasLinea.size() > 7 ) {
+			case "AGREGAR_LIBRO":
+				/*if (listaPalabrasLinea.size() > 7 ) {
 					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
 				} else if (listaPalabrasLinea.size() < 7) {
 					System.out.println("El comando contiene menos parametros de los aceptados");
 					System.out.println("");
-				} else if (listaPalabrasLinea.size() == 7) {
+				} else if (listaPalabrasLinea.size() == 1) {*/
 					agregarLibro();
-				}
+				//}
 			break;
-			case "MOSTRAR_LIBRO":
+			/*case "MOSTRAR_LIBRO":
 				if (listaPalabrasLinea.size() > 2) {
 					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
@@ -350,7 +350,7 @@ public class Comandos {
 					mostrarLibro();
 				}
 			break;
-			case "MOSTRAR_LIBROS":
+			*/case "MOSTRAR_LIBROS":
 				if (listaPalabrasLinea.size() > 1) {
 					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
@@ -361,7 +361,7 @@ public class Comandos {
 					mostrarLibros();
 				}
 			break;
-			case "MODIFICAR_LIBRO":
+			/*case "MODIFICAR_LIBRO":
 				if (listaPalabrasLinea.size() > 8) {
 					System.out.println("El comando contiene más parametros de los aceptados");
 					System.out.println("");
@@ -790,6 +790,207 @@ public class Comandos {
 			System.out.println("El Genero ingresado no existe! ");
 		}
 	}
+
+	//CRUD LIBRO
+	public void agregarLibro() {
+		Libro libro = new Libro();
+		boolean error_autor = false;
+		boolean error_editorial = false;
+		boolean error_genero = false;
+		error = 0;
+		if (numeroLibros == 0) {
+			try {
+				libro.setId(numeroLibros);
+				for (Autor autor: ManejadorAutor.getInstancia().getListaAutores()) {
+					if (listaPalabrasLinea.get(1).equals(String.valueOf(autor.getId()))) {
+						libro.setIdAutor(autor.getId());
+						error_autor = false;
+						break;
+					} else if (listaPalabrasLinea.get(1).equals(autor.getNombreAutor())) {
+						libro.setIdAutor(autor.getId());
+						error_autor = false;
+						break;
+					} else {
+						error_autor = true;
+					}
+				}
+				for (Editorial editorial: ManejadorEditorial.getInstancia().getListaEditoriales()) {
+					if (listaPalabrasLinea.get(2).equals(String.valueOf(editorial.getId()))) {
+						libro.setIdEditorial(editorial.getId());
+						error_editorial = false;
+						break;
+					} else if (listaPalabrasLinea.get(2).equals(editorial.getNombreEditorial())) {
+						libro.setIdEditorial(editorial.getId());
+						error_editorial = false;
+						break;
+					} else {
+						error_editorial = true;
+					}
+				}
+				for (Genero genero: ManejadorGenero.getInstancia().getListaGeneros()) {
+					if (listaPalabrasLinea.get(3).equals(String.valueOf(genero.getId()))) {
+						libro.setIdGenero(genero.getId());
+						error_genero = false;
+						break;
+					} else if (listaPalabrasLinea.get(3).equals(genero.getNombreGenero())) {
+						libro.setIdGenero(genero.getId());
+						error_genero = false;
+						break;
+					} else {
+						error_genero = true;
+					}
+				}
+				libro.setIsbn(Integer.parseInt(listaPalabrasLinea.get(4)));
+				libro.setNombreLibro(listaPalabrasLinea.get(5));
+				libro.setPrecio(Double.parseDouble(listaPalabrasLinea.get(6)));
+				if (error_autor == true) {
+					System.out.println("El autor ingresado no existe!");
+				} 
+				if (error_genero == true) {
+					System.out.println("El genero ingresado no existe!");
+				}
+				if (error_editorial == true) {
+					System.out.println("La editorial ingresada no existe!");
+				} 
+				if (error_autor == false && error_editorial == false && error_genero == false) {
+					ManejadorLibro.getInstancia().agregarLibro(libro);
+					ManejadorArchivo.escribirArchivo(linea);
+					numeroLibros++;
+					System.out.println("Libro agregado con éxito");
+				}
+			} catch (Exception ex) {
+				System.out.println("Ha ocurrido un error por favor intente de nuevo");
+			}
+		} else {
+			for (Libro li:ManejadorLibro.getInstancia().getListaLibros()) {
+				if (listaPalabrasLinea.get(5).equals(String.valueOf(li.getId())) || listaPalabrasLinea.get(5).equals(li.getNombreLibro())) {
+					System.out.println("El libro ingresado ya existe");
+					System.out.println("");
+					error++;
+					break;
+				}
+			}
+	
+			if(error == 0) {
+				try {
+					libro.setId(numeroLibros);
+					for (Autor autor: ManejadorAutor.getInstancia().getListaAutores()) {
+						if (listaPalabrasLinea.get(1).equals(String.valueOf(autor.getId()))) {
+							libro.setIdAutor(autor.getId());
+							error_autor = false;
+							break;
+						} else if (listaPalabrasLinea.get(1).equals(autor.getNombreAutor())) {
+							libro.setIdAutor(autor.getId());
+							error_autor = false;
+							break;
+						} else {
+							error_autor = true;
+						}
+					}
+					for (Editorial editorial: ManejadorEditorial.getInstancia().getListaEditoriales()) {
+						if (listaPalabrasLinea.get(2).equals(String.valueOf(editorial.getId()))) {
+							libro.setIdEditorial(editorial.getId());
+							error_editorial = false;
+							break;
+						} else if (listaPalabrasLinea.get(2).equals(editorial.getNombreEditorial())) {
+							libro.setIdEditorial(editorial.getId());
+							error_editorial = false;
+							break;
+						} else {
+							error_editorial = true;
+						}
+					}
+					for (Genero genero: ManejadorGenero.getInstancia().getListaGeneros()) {
+						if (listaPalabrasLinea.get(3).equals(String.valueOf(genero.getId()))) {
+							libro.setIdGenero(genero.getId());
+							error_genero = false;
+							break;
+						} else if (listaPalabrasLinea.get(3).equals(genero.getNombreGenero())) {
+							libro.setIdGenero(genero.getId());
+							error_genero = false;
+							break;
+						} else {
+							error_genero = true;
+						}
+					}
+					libro.setIsbn(Integer.parseInt(listaPalabrasLinea.get(4)));
+					libro.setNombreLibro(listaPalabrasLinea.get(5));
+					libro.setPrecio(Double.parseDouble(listaPalabrasLinea.get(6)));
+					if (error_autor == true) {
+						System.out.println("El autor ingresado no existe!");
+					} 
+					if (error_genero == true) {
+						System.out.println("El genero ingresado no existe!");
+					}
+					if (error_editorial == true) {
+						System.out.println("La editorial ingresada no existe!");
+					} 
+					if (error_autor == false && error_editorial == false && error_genero == false) {
+						ManejadorLibro.getInstancia().agregarLibro(libro);
+						ManejadorArchivo.escribirArchivo(linea);
+						numeroLibros++;
+						System.out.println("Libro agregado con éxito");
+					}
+				} catch (Exception ex) {
+					System.out.println("Ha ocurrido un error por favor intente de nuevo");
+				}
+			}
+		}
+	}
+	
+	public void mostrarLibros() {
+		error = 0;
+		for (Libro libro:ManejadorLibro.getInstancia().getListaLibros()) {
+			System.out.println("ID: " + libro.getId() +  " Autor: " + libro.getIdAutor() +  " Editorial: " + libro.getIdEditorial() +  " Genero: " + libro.getIdGenero() +  " ISBN: " + libro.getIsbn() + " Nombre_Libro: " + libro.getNombreLibro() +  " Precio: " + libro.getPrecio());
+		}
+		ManejadorArchivo.escribirArchivo(linea);
+	}
+/*
+	public void mostrarLibro() {
+		boolean existenciaLibro = false;
+		for (Libro aa:ManejadorLibro.getInstancia().getListaLibros()) {
+			if (listaPalabrasLinea.get(1).equals(String.valueOf(aa.getId())) || listaPalabrasLinea.get(1).equals(aa.getNombreLibro())) {
+				System.out.println("");
+				System.out.println("ID: " + aa.getId() + " Nombre_Libro: " + aa.getNombreLibro());
+				System.out.println("");
+				ManejadorArchivo.escribirArchivo(linea);
+				existenciaLibro = true;
+				break;
+			} else {
+				existenciaLibro = false;
+			}
+		}
+		if (existenciaLibro == false) {
+			System.out.println("El Libro no existe");
+		}
+	}
+	
+	public void modificarLibro() {
+		int contador = 0;
+		for (Libro aa:ManejadorLibro.getInstancia().getListaLibros()) {
+			if (listaPalabrasLinea.get(1).equals(String.valueOf(aa.getId())) || listaPalabrasLinea.get(1).equals(aa.getNombreLibro())){
+				ManejadorLibro.getInstancia().modificarLibro(aa,listaPalabrasLinea.get(2));
+			}
+			contador = contador + 1;
+		}
+	}
+	
+	public void eliminarLibro() {
+		Libro libro = new Libro();
+		boolean existenciaLibro = false;
+		for (Libro aa: ManejadorLibro.getInstancia().getListaLibros()) {
+			if (listaPalabrasLinea.get(1).equals(String.valueOf(aa.getId())) || listaPalabrasLinea.get(1).equals(aa.getNombreLibro())) {
+				existenciaLibro = true;
+				libro = aa;
+				break;
+			}
+		}
+		if (existenciaLibro == true) {
+			ManejadorLibro.getInstancia().eliminarLibro(libro);
+		} else {
+			System.out.println("El Libro ingresado no existe! ");
+		}
+	}*/
 	
 	public boolean getAprobacion() {
 		return aprobacion;

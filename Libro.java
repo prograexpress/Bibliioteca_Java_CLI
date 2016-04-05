@@ -62,19 +62,19 @@ public class Libro {
 		return isbn;
 	}
 	
-	private void setNombreLibro (String nombreLibro) {
+	public void setNombreLibro (String nombreLibro) {
 		this.nombreLibro = nombreLibro;
 	}
 	
-	private String getNombreLibro() {
+	public String getNombreLibro() {
 		return nombreLibro;
 	}
 	
-	private void setPrecio(double precio) {
+	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
 	
-	private double getPrecio(){
+	public double getPrecio(){
 		return precio;	
 	}
 	
