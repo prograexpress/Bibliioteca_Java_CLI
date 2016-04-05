@@ -1042,7 +1042,6 @@ public class Comandos {
 			if (error_autor == false && error_editorial == false && error_genero == false) {
 				ManejadorLibro.getInstancia().modificarLibro(libroAnt, libro);
 				ManejadorArchivo.escribirArchivo(linea);
-				System.out.println("Libro modificado con éxito");
 			}
 		}
 	}
